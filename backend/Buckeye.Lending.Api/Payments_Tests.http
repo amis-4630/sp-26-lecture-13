@@ -1,0 +1,40 @@
+@HostAddress = http://localhost:5000
+
+### Get all payments for loan application 1 (approved mortgage)
+GET {{HostAddress}}/api/loanapplications/1/payments
+Accept: application/json
+
+### Get all payments for loan application 4 (approved personal)
+GET {{HostAddress}}/api/loanapplications/4/payments
+Accept: application/json
+
+### Get payments for application with no payments
+GET {{HostAddress}}/api/loanapplications/2/payments
+Accept: application/json
+
+### Record a new payment against loan application 1
+POST {{HostAddress}}/api/loanapplications/1/payments
+Content-Type: application/json
+
+{
+  "amount": 1450.00,
+  "method": "ACH"
+}
+
+### Record a payment via check
+POST {{HostAddress}}/api/loanapplications/6/payments
+Content-Type: application/json
+
+{
+  "amount": 475.00,
+  "method": "Check"
+}
+
+### Record payment for non-existent application (404)
+POST {{HostAddress}}/api/loanapplications/99/payments
+Content-Type: application/json
+
+{
+  "amount": 500.00,
+  "method": "Wire"
+}

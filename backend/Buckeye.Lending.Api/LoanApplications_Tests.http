@@ -1,0 +1,72 @@
+@HostAddress = http://localhost:5000
+
+### Get all loan applications
+GET {{HostAddress}}/api/loanapplications
+Accept: application/json
+
+### Get all filtered by loan type (1=Mortgage)
+GET {{HostAddress}}/api/loanapplications?loanTypeId=1
+Accept: application/json
+
+### Get all with minAmount filter
+GET {{HostAddress}}/api/loanapplications?minAmount=100000
+Accept: application/json
+
+### Get loan application by ID (valid)
+GET {{HostAddress}}/api/loanapplications/2
+Accept: application/json
+
+### Get loan application by ID (not found - 404)
+GET {{HostAddress}}/api/loanapplications/99
+Accept: application/json
+
+### Create new loan application
+POST {{HostAddress}}/api/loanapplications
+Content-Type: application/json
+
+{
+  "applicantName": "David Kim",
+  "applicantId": 4,
+  "loanTypeId": 1,
+  "loanAmount": 175000,
+  "annualIncome": 82000
+}
+
+### Create with invalid data (missing name - 400)
+POST {{HostAddress}}/api/loanapplications
+Content-Type: application/json
+
+{
+  "applicantName": "",
+  "applicantId": 1,
+  "loanTypeId": 1,
+  "loanAmount": 175000,
+  "annualIncome": 82000
+}
+
+### Create with invalid data (negative amount - 400)
+POST {{HostAddress}}/api/loanapplications
+Content-Type: application/json
+
+{
+  "applicantName": "Test User",
+  "applicantId": 1,
+  "loanTypeId": 3,
+  "loanAmount": -5000,
+  "annualIncome": 50000
+}
+
+### Update loan application
+PUT {{HostAddress}}/api/loanapplications/2
+Content-Type: application/json
+
+{
+  "applicantName": "Michael Chen",
+  "applicantId": 2,
+  "loanTypeId": 2,
+  "loanAmount": 200000,
+  "annualIncome": 125000
+}
+
+### Delete loan application
+DELETE {{HostAddress}}/api/loanapplications/3

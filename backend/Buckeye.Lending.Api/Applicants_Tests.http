@@ -1,0 +1,33 @@
+@HostAddress = http://localhost:5000
+
+### Get all applicants
+GET {{HostAddress}}/api/applicants
+Accept: application/json
+
+### Get applicant by ID (includes their loan applications)
+GET {{HostAddress}}/api/applicants/1
+Accept: application/json
+
+### Get applicant by ID (not found - 404)
+GET {{HostAddress}}/api/applicants/99
+Accept: application/json
+
+### Create new applicant
+POST {{HostAddress}}/api/applicants
+Content-Type: application/json
+
+{
+  "name": "Lisa Park",
+  "email": "lisa.park@email.com",
+  "phone": "614-555-0201"
+}
+
+### Create with invalid data (missing name - 400)
+POST {{HostAddress}}/api/applicants
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "nobody@email.com",
+  "phone": "614-555-0000"
+}

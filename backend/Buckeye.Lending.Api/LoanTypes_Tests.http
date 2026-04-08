@@ -1,0 +1,17 @@
+@HostAddress = http://localhost:5000
+
+### Get all loan types
+GET {{HostAddress}}/api/loantypes
+Accept: application/json
+
+### Get loan type by ID (Mortgage)
+GET {{HostAddress}}/api/loantypes/1
+Accept: application/json
+
+### Get loan type by ID (Auto)
+GET {{HostAddress}}/api/loantypes/2
+Accept: application/json
+
+### Get loan type by ID (not found - 404)
+GET {{HostAddress}}/api/loantypes/99
+Accept: application/json

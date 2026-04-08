@@ -1,0 +1,43 @@
+@HostAddress = http://localhost:5000
+
+### Get review queue
+GET {{HostAddress}}/api/review-queue
+Accept: application/json
+
+### Add item to queue
+POST {{HostAddress}}/api/review-queue
+Accept: application/json
+Content-Type: application/json
+
+{
+  "loanApplicationId": -99,
+  "priority": 0dotnet add package FluentValidation.AspNetCore
+}
+
+### Add item to queue (high priority)
+POST {{HostAddress}}/api/review-queue
+Accept: application/json
+Content-Type: application/json
+
+{
+  "loanApplicationId": 2,
+  "priority": 1
+}
+
+### Update review item (itemId = 1)
+PUT {{HostAddress}}/api/review-queue/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "priority": 2,
+  "notes": "Updated priority and added notes"
+}
+
+### Remove item from queue (itemId = 1)
+DELETE {{HostAddress}}/api/review-queue/1
+Accept: application/json
+
+### Clear the entire queue
+DELETE {{HostAddress}}/api/review-queue/clear
+Accept: application/json

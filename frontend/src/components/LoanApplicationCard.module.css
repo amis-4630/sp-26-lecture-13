@@ -1,0 +1,172 @@
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.denied {
+  opacity: 0.6;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.loanType {
+  font-size: 0.75rem;
+  color: #bb0000;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.status {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.statusApproved {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.statusDenied {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.statusPending {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.statusReview {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.statusFlagged {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.info {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.applicant {
+  font-size: 1.1rem;
+  margin: 0 0 4px 0;
+}
+
+.amount {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin: 4px 0;
+}
+
+.income {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 2px 0;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: #999;
+  margin: 4px 0;
+}
+
+.highRiskBadge {
+  display: inline-block;
+  background-color: #ff5722;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 4px 0;
+  width: fit-content;
+}
+
+.largeLoanBadge {
+  display: inline-block;
+  background-color: #9c27b0;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 4px 0;
+  width: fit-content;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.actionBtn {
+  flex: 1;
+  padding: 8px 4px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.actionBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.approveBtn {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.approveBtn:hover:not(:disabled) {
+  background-color: #1b5e20;
+}
+
+.denyBtn {
+  background-color: #c62828;
+  color: white;
+}
+
+.denyBtn:hover:not(:disabled) {
+  background-color: #b71c1c;
+}
+
+.flagBtn {
+  background-color: #e65100;
+  color: white;
+}
+
+.flagBtn:hover:not(:disabled) {
+  background-color: #bf360c;
+}

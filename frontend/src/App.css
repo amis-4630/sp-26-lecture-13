@@ -1,0 +1,193 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header {
+  background-color: #bb0000;
+  color: white;
+  padding: 24px 32px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+header p {
+  margin: 4px 0 0;
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+.type-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.type-filter button {
+  border: 1px solid #bb0000;
+  background: white;
+  color: #bb0000;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.type-filter button.active {
+  background: #bb0000;
+  color: white;
+}
+
+.type-filter button:hover {
+  border-color: #990000;
+  color: #990000;
+}
+
+.type-filter button.active:hover {
+  background: #990000;
+  border-color: #990000;
+  color: white;
+}
+
+.loan-count {
+  margin-top: 16px;
+  color: #555;
+}
+
+.loan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Three-State Pattern UI feedback */
+.loading {
+  text-align: center;
+  padding: 48px;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  padding: 24px;
+  color: #b00;
+  background: #fff0f0;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+}
+
+/* ─── Header layout ─────────────────────────────────────────────────────── */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.apply-link {
+  display: inline-block;
+  background: white;
+  color: #bb0000;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.apply-link:hover {
+  background: #f0f0f0;
+}
+
+.back-link {
+  color: white;
+  opacity: 0.85;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.back-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* ─── Loan form ─────────────────────────────────────────────────────────── */
+.loan-form {
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loan-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+  color: #333;
+}
+
+.loan-form input,
+.loan-form select,
+.loan-form textarea {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.loan-form input:focus,
+.loan-form select:focus,
+.loan-form textarea:focus {
+  outline: none;
+  border-color: #bb0000;
+  box-shadow: 0 0 0 2px rgba(187, 0, 0, 0.15);
+}
+
+.loan-form input[aria-invalid="true"],
+.loan-form select[aria-invalid="true"] {
+  border-color: #b00;
+}
+
+.field-error {
+  color: #b00;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.submit-btn {
+  background: #bb0000;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.submit-btn:hover {
+  background: #990000;
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

@@ -1,0 +1,40 @@
+@HostAddress = http://localhost:5000
+
+### Get all notes for loan application 1 (has 2 seed notes)
+GET {{HostAddress}}/api/loanapplications/1/notes
+Accept: application/json
+
+### Get notes for loan application 3 (has 1 seed note)
+GET {{HostAddress}}/api/loanapplications/3/notes
+Accept: application/json
+
+### Get notes for application with no notes
+GET {{HostAddress}}/api/loanapplications/2/notes
+Accept: application/json
+
+### Add a note to loan application 2
+POST {{HostAddress}}/api/loanapplications/2/notes
+Content-Type: application/json
+
+{
+  "author": "Loan Officer",
+  "text": "Verified employment at current employer for 3 years"
+}
+
+### Add an underwriter note to loan application 5
+POST {{HostAddress}}/api/loanapplications/5/notes
+Content-Type: application/json
+
+{
+  "author": "Underwriter",
+  "text": "Requesting 3 years of business tax returns before approval"
+}
+
+### Add note to non-existent application (404)
+POST {{HostAddress}}/api/loanapplications/99/notes
+Content-Type: application/json
+
+{
+  "author": "Loan Officer",
+  "text": "This should fail"
+}
