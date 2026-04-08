@@ -45,24 +45,14 @@ export type Applicant = {
     createdDate: string;
 };
 
-const API_BASE = "http://localhost:5000";
+import client from "../api/client";
 
 /**
  * Fetch all loan applications from the API.
- *
- * Concepts demonstrated:
- *   - Fetch API:   browser-native way to make HTTP requests
- *   - Async/Await: makes asynchronous code read like synchronous code
+ * The axios client automatically attaches the JWT via the request interceptor.
  */
 export async function fetchLoanApplications(): Promise<LoanApplication[]> {
-    const response = await fetch(`${API_BASE}/api/loanapplications`);
-
-    // fetch does NOT throw on 4xx/5xx — we must check manually
-    if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
-    }
-
-    const data: LoanApplication[] = await response.json();
+    const { data } = await client.get<LoanApplication[]>("/api/loanapplications");
     return data;
 }
 
@@ -70,11 +60,8 @@ export async function fetchLoanApplications(): Promise<LoanApplication[]> {
  * Fetch all loan types for populating the loan-type dropdown.
  */
 export async function fetchLoanTypes(): Promise<LoanType[]> {
-    const response = await fetch(`${API_BASE}/api/loantypes`);
-    if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
-    }
-    return response.json();
+    const { data } = await client.get<LoanType[]>("/api/loantypes");
+    return data;
 }
 
 /**
@@ -83,15 +70,8 @@ export async function fetchLoanTypes(): Promise<LoanType[]> {
 export async function createApplicant(
     payload: CreateApplicantPayload,
 ): Promise<Applicant> {
-    const response = await fetch(`${API_BASE}/api/applicants`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-    });
-    if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
-    }
-    return response.json();
+    const { data } = await client.post<Applicant>("/api/applicants", payload);
+    return data;
 }
 
 /**
@@ -101,13 +81,6 @@ export async function createApplicant(
 export async function createLoanApplication(
     payload: CreateLoanApplicationPayload,
 ): Promise<LoanApplication> {
-    const response = await fetch(`${API_BASE}/api/loanapplications`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-    });
-    if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
-    }
-    return response.json();
+    const { data } = await client.post<LoanApplication>("/api/loanapplications", payload);
+    return data;
 }

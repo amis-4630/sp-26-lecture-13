@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { useLoanContext } from "../contexts/LoanContext";
+import { useAuth } from "../contexts/AuthContext";
 import LoanApplicationList from "./LoanApplicationList";
 
 // ─── Dashboard ───────────────────────────────────────────────────────────────
 // Reads state and dispatch directly from context — no useState, no prop drilling.
 export default function Dashboard() {
   const { state, dispatch, filteredLoans, loanTypes } = useLoanContext();
+  const { user, logout } = useAuth();
 
   return (
     <div className="app">
@@ -15,9 +17,15 @@ export default function Dashboard() {
             <h1>Buckeye Lending</h1>
             <p>Loan Application Dashboard</p>
           </div>
-          <Link to="/apply" className="apply-link">
-            Apply
-          </Link>
+          <div className="header-actions">
+            {user && <span className="user-email">{user.email}</span>}
+            <Link to="/apply" className="apply-link">
+              Apply
+            </Link>
+            <button className="logout-btn" onClick={logout} type="button">
+              Logout
+            </button>
+          </div>
         </div>
         {state.notificationCount > 0 && (
           <button
