@@ -1,13 +1,16 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Buckeye.Lending.Api.Models;
 using Buckeye.Lending.Api.Data;
+using Buckeye.Lending.Api.Extensions;
 using Buckeye.Lending.Api.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace Buckeye.Lending.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")] // sets the base URI to `/api/loanapplications`
 public class LoanApplicationsController : ControllerBase
 {
@@ -33,6 +36,13 @@ public class LoanApplicationsController : ControllerBase
             .Include(l => l.Applicant)
             .Include(l => l.LoanType)
             .AsQueryable();
+
+        // Non-admin users can only see their own loans
+        if (!User.IsInRole("Admin"))
+        {
+            var userId = User.GetUserId();
+            query = query.Where(l => l.OwnerUserId == userId);
+        }
 
         if (loanTypeId.HasValue)
             query = query.Where(l => l.LoanTypeId == loanTypeId.Value);
@@ -60,8 +70,10 @@ public class LoanApplicationsController : ControllerBase
             .Include(l => l.LoanNotes)
             .FirstOrDefaultAsync(l => l.Id == id);
 
-        if (app == null)
-            throw new KeyNotFoundException($"Loan application with ID {id} not found");
+        // Return 404 for non-existent OR non-owned loans (do not leak existence)
+        if (app is null || (!User.IsInRole("Admin") && app.OwnerUserId != User.GetUserId()))
+            return NotFound();
+
         return Ok(app);
     }
 
@@ -79,6 +91,7 @@ public class LoanApplicationsController : ControllerBase
         // Set server-controlled fields
         application.Status = "Pending Review";
         application.SubmittedDate = DateTime.Now;
+        application.OwnerUserId = User.GetUserId(); // Always set from JWT, ignore body value
 
         _context.LoanApplications.Add(application);
         await _context.SaveChangesAsync();
@@ -91,6 +104,7 @@ public class LoanApplicationsController : ControllerBase
     }
 
     // PUT: api/LoanApplications/2
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<LoanApplication>> Update(int id, LoanApplication updated)
     {
@@ -123,8 +137,10 @@ public class LoanApplicationsController : ControllerBase
     public async Task<ActionResult> Delete(int id)
     {
         var app = await _context.LoanApplications.FindAsync(id);
-        if (app == null)
-            throw new KeyNotFoundException($"Loan application with ID {id} not found");
+
+        // Return 404 for non-existent OR non-owned loans (do not leak existence)
+        if (app is null || (!User.IsInRole("Admin") && app.OwnerUserId != User.GetUserId()))
+            return NotFound();
 
         _context.LoanApplications.Remove(app);
         await _context.SaveChangesAsync();

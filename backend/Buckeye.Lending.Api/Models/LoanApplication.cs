@@ -33,4 +33,8 @@ public class LoanApplication
     // Navigation — one application can have many payments and notes
     public List<LoanPayment> Payments { get; set; } = [];
     public List<LoanNote> LoanNotes { get; set; } = [];
+
+    // Foreign key — which user owns this application (nullable for migration compatibility)
+    public int? OwnerUserId { get; set; }
+    public ApplicationUser? Owner { get; set; }
 }

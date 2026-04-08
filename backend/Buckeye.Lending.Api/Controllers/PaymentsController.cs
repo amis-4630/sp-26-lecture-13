@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Buckeye.Lending.Api.Data;
@@ -8,6 +9,7 @@ using Buckeye.Lending.Api.Validators;
 namespace Buckeye.Lending.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/loanapplications/{loanApplicationId}/[controller]")]
 public class PaymentsController : ControllerBase
 {

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Buckeye.Lending.Api.Data;
@@ -6,6 +7,7 @@ using Buckeye.Lending.Api.Models;
 namespace Buckeye.Lending.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class LoanTypesController : ControllerBase
 {
