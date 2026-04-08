@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Buckeye.Lending.Api.Models;
 
 namespace Buckeye.Lending.Api.Data;
 
-public class LendingContext : DbContext
+public class LendingContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
 {
     public LendingContext(DbContextOptions<LendingContext> options)
         : base(options) { }
@@ -18,6 +20,9 @@ public class LendingContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Identity schema must be configured first
+        base.OnModelCreating(modelBuilder);
+
         // Seed Applicants
         modelBuilder.Entity<Applicant>().HasData(
             new Applicant { Id = 1, Name = "Sarah Johnson", Email = "sarah.johnson@email.com", Phone = "614-555-0101", CreatedDate = new DateTime(2026, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
